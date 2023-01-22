@@ -34,6 +34,7 @@ const SignUp = () => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
+
             await updateProfile(register.user, {
               displayName,
               photoURL: downloadURL,
@@ -47,16 +48,9 @@ const SignUp = () => {
               photoURL: downloadURL,
             }
           
-            console.log(userData)
-            const collectionRef = collection(db, "users")
-            console.log(collectionRef)
-            // await setDoc(docRef, userData);
-            console.log(register)
-            const docRef = await addDoc( collectionRef, userData)
+            await setDoc(doc(db, "users", register.user.uid), userData);
 
-            console.log(docRef)
-          
-            // setDoc(doc(db, "userPosts", register.user.uid), { messages: [] });
+            await setDoc(doc(db, "userPosts", register.user.uid), { messages: [] });
           });
         }
       );
