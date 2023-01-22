@@ -1,0 +1,133 @@
+.signUp{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(36, 19, 59);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUpWrapper{
+    width: 80%;
+    display: flex;
+}
+
+
+.signUpLeft{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 20px;
+    justify-content: center;
+}
+
+
+.signUpLogo{
+    font-size: 60px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.signUpDesc{
+    font-size: 24px;
+}
+
+
+.signUpRight{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 20px;
+    justify-content: center;
+
+}
+
+
+.signUpBox{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(187, 131, 59);
+    border-radius: 10px;
+    width: 100%;
+
+}
+
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.profileImg{
+    display: flex;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.formInput{
+    display: flex;
+    align-items: center;
+
+}
+
+label{
+    display: flex;
+    align-items: center;
+
+}
+
+
+
+
+
+.bottomBox{
+    height: 450px;
+    padding: 5px 40px 10px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgb(187, 131, 59);
+}
+
+.signUpInput{
+    height: 30px;
+    border-radius: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    border: 1px solid black;
+}
+
+.signUpInput:focus{
+    outline: none;
+}
+
+.signUpButton{
+    height: 40px;
+    width: 100%;
+    background-color: rgb(36, 19, 59);
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.loginButton{
+    height: 40px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 5px;
+    cursor: pointer;
+}

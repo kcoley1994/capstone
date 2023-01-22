@@ -1,0 +1,79 @@
+.darkmode{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+.darkmode .navbarContainer{
+    background-color: rgb(36, 19, 59);
+    color: rgb(156,156,156);
+    border-bottom: 0.5px solid rgb(156,156,156);
+}
+.darkmode .logo{
+    color: white;
+}
+
+.darkmode .navbarLink{
+    color: rgb(156,156,156);
+}
+
+.darkmode .searchInput{
+    color: #000000;
+}
+
+
+.darkmode .leftbar{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+
+.darkmode .menuLink:hover{
+    background-color: rgba(114, 110, 110, 0.3);
+}
+
+.darkmode .feed{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+.darkmode .shareInput{
+    color: rgb(156,156,156);
+}
+
+.darkmode .rightbar{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+.darkmode .rightbar .onlineProfileName{
+
+    color: rgb(156,156,156);
+}
+
+.darkmode .editButton{
+    background-color: rgb(156,156,156);
+    color: #000000;
+}
+
+.darkmode .editProfile{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+.darkmode .editProfile form input{ 
+    color: rgb(198, 191, 191);   
+}
+
+.darkmode .updateButton{
+    background-color: rgb(156,156,156);
+}
+
+.darkmode .musicContainer{
+    background-color: #111111;
+    color: rgb(156,156,156);
+}
+
+.darkmode .addMusic .addMusicInput{
+    
+    color: rgb(156,156,156);
+}

@@ -1,0 +1,11 @@
+.playlistlink{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    font-weight: 500;
+}
+
+.playlistlinkText{
+    margin-left: 10px;
+    margin-right: 5px;
+}

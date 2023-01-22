@@ -1,0 +1,39 @@
+.addMusic{
+    padding: 10px;
+    margin: 10px;
+    
+}
+h1{
+    margin: 20px;
+    text-align: center;
+}
+
+
+.addMusicForm{
+    display: flex;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.addMusicInput{
+    
+    height: 50px;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+
+.addMusicButton{
+    height: 50px;
+    width: 75%;
+    padding: 10px;
+    background-color: rgb(36, 19, 59);
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 5px;
+    cursor: pointer;
+}

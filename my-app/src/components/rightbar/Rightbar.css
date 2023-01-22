@@ -1,0 +1,37 @@
+.rightbar{
+    flex: 3.5;
+    height: calc(100vh - 50px);
+    position: sticky;
+    top: 10px;
+    overflow-y: scroll;
+}
+
+.rightbarWrapper{
+    padding: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 101, 0.47);
+}
+
+.rightbarCenterTitle{
+    display: flex;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+
+
+::-webkit-scrollbar-track{
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: lightgrey;
+}
