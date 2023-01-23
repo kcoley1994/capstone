@@ -28,7 +28,7 @@ const Share = () => {
   const [img, setImg] = useState(null);
 
   const handlePost = async (event) => {
-    event.preventDefault()
+    
     if (img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -84,6 +84,8 @@ const Share = () => {
          }),
        });
     }
+    setInput("")
+    setImg(null)
   };
 
   const handleKey = (event) => {
@@ -108,6 +110,7 @@ const Share = () => {
             value={input}
             className="shareInput"
             onChange={(event) => setInput(event.target.value)}
+            onKeyDown= {handleKey}
           />
         </div>
         <hr className="shareHr" />
