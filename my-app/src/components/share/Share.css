@@ -20,12 +20,21 @@
 
 }
 
+.shareProfileImg{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
 
 .shareInput{
     border: none;
     background-color: transparent;
     font-size: 18px;
     width: 80%;
+    height: 30px;
 }
 
 .shareInput:focus{
@@ -33,7 +42,8 @@
 }
 
 .shareHr{
-    margin: 20px;
+    margin: 10px;
+
 }
 
 

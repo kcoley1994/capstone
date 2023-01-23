@@ -1,31 +1,120 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 import "./Share.css";
+import { AuthContext } from "../../context/AuthContext";
+import { storage, db } from "../../utils/Firebase/firebase.js";
+import { v4 as uuid } from "uuid";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  serverTimestamp,
+  Timestamp,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+
 
 const Share = () => {
-  const [file, setFile] = useState(null);
+  const [error, setError] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const [input, setInput] = useState("");
+
+  const [img, setImg] = useState(null);
+
+  const handlePost = async (event) => {
+    event.preventDefault()
+    if (img) {
+      const storageRef = ref(storage, uuid());
+      const uploadTask = uploadBytesResumable(storageRef, img);
+
+      uploadTask.on(
+        (error) => {
+          setError(true)
+        },
+        () => {
+          
+         const docRef= getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log(docRef)
+            await addDoc(collection(db, "posts"), {
+             uid: currentUser.uid,
+             photoURL: currentUser.photoURL,
+             displayName:currentUser.displayName,
+             input,
+             img:downloadURL,
+             timestamp: serverTimestamp(),
+            });
+            await updateDoc(doc(db, "userPosts", currentUser.uid), {
+              messages: arrayUnion({
+                id: uuid(),
+                uid: currentUser.uid,
+                photoURL:currentUser.photoURL,
+                displayName:currentUser.displayName,
+                input,
+                img:downloadURL,
+                timestamp: Timestamp.now(),
+              }),
+            });
+          });
+        }
+      );
+    } else {
+      await addDoc(collection(db, "posts"), {
+        uid: currentUser.uid,
+        photoURL: currentUser.photoURL,
+        displayName:currentUser.displayName,
+        input,
+
+        timestamp: serverTimestamp(),
+       });
+       await updateDoc(doc(db, "userPosts", currentUser.uid), {
+         messages: arrayUnion({
+           id: uuid(),
+           uid: currentUser.uid,
+           photoURL:currentUser.photoURL,
+           displayName:currentUser.displayName,
+           input,
+
+           timestamp: Timestamp.now(),
+         }),
+       });
+    }
+  };
+
+  const handleKey = (event) => {
+    event.code === "Enter" && handlePost();
+    console.log(handleKey);
+  };
+
   const removeImg = () => {
-    setFile(null);
+    setImg(null);
   };
 
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <input
+          <img src={currentUser.photoURL} alt="" className="shareProfileImg" />
+          <textarea
             type="text"
-            placeholder=" What's The Vybe?"
+            rows={2}
+            style={{ resize: "none", overflow: "hidden" }}
+            placeholder={"What's The Vybe " + currentUser.displayName + "?"}
+            value={input}
             className="shareInput"
+            onChange={(event) => setInput(event.target.value)}
           />
         </div>
         <hr className="shareHr" />
-        {file && (
+        {img && (
           <div className="shareImgContainer">
-            <img src={URL.createObjectURL(file)} alt="" className="shareImg" />
-            <CloseIcon className="shareCancelImg" onClick={removeImg}/>
+            <img src={URL.createObjectURL(img)} alt="" className="shareImg" />
+            <CloseIcon className="shareCancelImg" onClick={removeImg} />
           </div>
         )}
         <div className="shareBottom">
@@ -45,7 +134,8 @@ const Share = () => {
                 id="file"
                 accept=".png,.jpeg,.jpg"
                 style={{ display: "none" }}
-                onChange={(event) => setFile(event.target.files[0])}
+                onChange={(event) => setImg(event.target.files[0])}
+                onKeyDown={handleKey}
               />
             </label>
             <div className="share-option">

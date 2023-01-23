@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import "./SignUp.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db, storage } from "../../utils/Firebase/firebase";
 
 const SignUp = () => {
   const [img, setImg] = useState(null);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -24,7 +25,7 @@ const SignUp = () => {
         password
       );
 
-      const storageRef = ref(storage, displayName);
+      const storageRef = ref(storage, "usersImages/" + displayName);
 
       const uploadTask = uploadBytesResumable(storageRef, img);
 
@@ -32,32 +33,35 @@ const SignUp = () => {
         (error) => {
           setError(true);
         },
+
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
-
             await updateProfile(register.user, {
               displayName,
               photoURL: downloadURL,
             });
-            const userData ={
+            const userData = {
               uid: register.user.uid,
               firstName,
               lastName,
               displayName,
               email,
               photoURL: downloadURL,
-            }
-          
+            };
+            console.log(register)
+
             await setDoc(doc(db, "users", register.user.uid), userData);
 
-            await setDoc(doc(db, "userPosts", register.user.uid), { messages: [] });
+            await setDoc(doc(db, "userPosts", register.user.uid), {
+              messages: []
+            });
           });
         }
       );
-      
     } catch (error) {
       setError(true);
     }
+    navigate('/login');
   };
   return (
     <div className="signUp">
@@ -127,6 +131,7 @@ const SignUp = () => {
                   placeholder="Password"
                   id="password"
                   className="signUpInput"
+                  minLength={6}
                   required
                 />
                 {/* <input

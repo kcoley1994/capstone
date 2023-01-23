@@ -14,7 +14,7 @@ const Profile = () => {
         <div className="profileRight">
           <div className="profileRightTop">
             <div className="profileUser">
-              <img src={require("../../assets/kevon.jpg")} alt="" className="profileUserImg" />
+              <img src={require("../../assets/img_default.png")} alt="" className="profileUserImg" />
             </div>
             <div className="profileInfo">
                 <h4 className="profileInfoName">Kevon</h4>
