@@ -18,12 +18,15 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import Picker from "@emoji-mart/react"
+
 
 
 const Share = () => {
   const [error, setError] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const [input, setInput] = useState("");
+  const[showEmojis, setShowEmojis] = useState(false)
 
   const [img, setImg] = useState(null);
 
@@ -39,8 +42,7 @@ const Share = () => {
         },
         () => {
           
-         const docRef= getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(docRef)
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await addDoc(collection(db, "posts"), {
              uid: currentUser.uid,
              photoURL: currentUser.photoURL,
@@ -84,13 +86,22 @@ const Share = () => {
          }),
        });
     }
-    setInput("")
-    setImg(null)
+    setInput("");
+    setImg(null);
+    setShowEmojis(false);
   };
 
   const handleKey = (event) => {
     event.code === "Enter" && handlePost();
-    console.log(handleKey);
+
+  };
+
+  const addEmoji= (event) =>{
+    let symbol = event.unified.split('-')
+    let codesArray =[]
+    symbol.forEach((element) => codesArray.push("0x" + element));
+    let emoji =String.fromCodePoint(...codesArray)
+    setInput(input + emoji);
   };
 
   const removeImg = () => {
@@ -141,7 +152,7 @@ const Share = () => {
                 onKeyDown={handleKey}
               />
             </label>
-            <div className="share-option">
+            <div onClick={() =>setShowEmojis(!showEmojis)} className="share-option">
               <EmojiEmotionsIcon
                 className="shareIcon"
                 style={{ color: "#E7C613" }}
@@ -149,7 +160,11 @@ const Share = () => {
               <span className="shareOptionText">Feeling/Emotions</span>
             </div>
           </div>
+
         </div>
+        {showEmojis && <div className="emoji">
+          <Picker onEmojiSelect={addEmoji} />
+        </div>}
       </div>
     </div>
   );

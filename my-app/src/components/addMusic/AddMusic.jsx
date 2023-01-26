@@ -5,8 +5,9 @@ const clientId = "02ba616421ae4db2b876a61713648b36";
 const clientSecret = "0ff60cb9363d4d0692542893f0e13a46";
 
 const AddMusic = () => {
-  const [songs, setSongs] = useState("");
-  const [artists, setArtists] = useState("");
+  const [songs, setSongs] = useState(false);
+  const [artists, setArtists] = useState(false);
+  const [songUri, setSongUri] =useState(false);
   const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
@@ -53,7 +54,10 @@ const AddMusic = () => {
     const data = await response.json();
     console.log(data);
     console.log(songs)
+    setSongs(data.tracks.items[0].name)
     setArtists(data.tracks.items[0].artists[0].name)
+    setSongUri(data.tracks.items[0].uri)
+
     console.log(artists)
   };
 

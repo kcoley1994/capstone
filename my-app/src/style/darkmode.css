@@ -36,9 +36,21 @@
     color: rgb(156,156,156);
 }
 
+
+
 .darkmode .shareInput{
     color: rgb(156,156,156);
 }
+
+.darkmode .commentBox{
+    display: flex;
+}
+
+.darkmode .commentInput{
+    color: rgb(156,156,156);
+}
+
+
 
 .darkmode .rightbar{
     background-color: #111111;
@@ -77,3 +89,4 @@
     
     color: rgb(156,156,156);
 }
+

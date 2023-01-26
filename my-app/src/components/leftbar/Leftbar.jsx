@@ -9,6 +9,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./Leftbar.css";
 import MenuLink from "../menuLink/MenuLink";
 import { DarkModeContext } from "../../context/darkModeContext";
+import { signOut } from "firebase/auth"
+import {auth } from '../../utils/Firebase/firebase'
 
 const Leftbar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -23,7 +25,10 @@ const Leftbar = () => {
         <span onClick={() => dispatch({ type: "TOGGLE" })}>
           <MenuLink Icon={<Brightness4Icon />} text="Theme" />
         </span>
-        <MenuLink Icon={<LogoutIcon />} text="Logout" />
+        <span onClick={() => signOut(auth)}>
+          <MenuLink Icon={<LogoutIcon />} text="Logout" />
+        </span>
+        
       </div>
     </div>
   );

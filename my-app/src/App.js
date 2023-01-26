@@ -1,4 +1,8 @@
-import { Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import Home from "./routes/Home/Home.jsx";
 import Profile from "./routes/Profile/Profile.jsx";
 import Login from "./routes/Login/Login";
@@ -8,23 +12,64 @@ import Music from "./routes/Music/Music";
 import "./style/darkmode.css";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext.js";
+import { AuthContext } from "./context/AuthContext.js";
 
 const App = () => {
-  const {darkMode} = useContext(DarkModeContext)
+  const { darkMode } = useContext(DarkModeContext);
+  const { currentUser } = useContext(AuthContext);
+
+  const AuthRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
+    return children;
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/",
+      element: (
+        <AuthRoute>
+          <Home />
+        </AuthRoute>
+      ),
+    },
+    {
+      path: "/music",
+      element: (
+        <AuthRoute>
+          <Music />
+        </AuthRoute>
+      ),
+    },
+    {
+      path: "/profile/:username",
+      element: (
+        <AuthRoute>
+          <Profile />
+        </AuthRoute>
+      ),
+    },
+    {
+      path: "/profile/:username/edit",
+      element: (
+        <AuthRoute>
+          <EditProfile />
+        </AuthRoute>
+      ),
+    },
+  ]);
   return (
     <div className={darkMode ? "app darkmode" : "app"}>
-      <Routes>
-        <Route path="/">
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="music" element={<Music />} />
-          <Route index element={<Home />} />
-          <Route path="profile">
-            <Route path=":username" element={<Profile />} />
-            <Route path=":username/edit" element={<EditProfile />} />
-          </Route>
-        </Route>
-      </Routes>
+      <RouterProvider router={router} />
     </div>
   );
 };

@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext} from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import InboxIcon from "@mui/icons-material/Inbox";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../context/AuthContext'
+
+
 const Navbar = () => {
+  const {currentUser} = useContext(AuthContext)
+
+
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -28,7 +34,7 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <span className="navbar-link">Home</span>
           </Link>
-          <Link to="/profile/username" style={{ textDecoration: "none" }}>
+          <Link to={`/profile/${currentUser.displayName}`} style={{ textDecoration: "none" }}>
             <span className="navbar-link">Profile</span>
           </Link>
           <Link to="/music" style={{ textDecoration: "none" }}>
