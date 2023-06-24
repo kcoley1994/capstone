@@ -18,7 +18,7 @@
 
 <h2> Framework/Library Used </h2>
 
-- <b>React Hook Base Commponents</b>
+- <b>React Hook Base Components</b>
 
 <!-- <p align="center">
 <img src="https://i.imgur.com/LhDCRz4.jpeg" height="85%" width="85%" alt="Image Analysis Dataflow"/>
